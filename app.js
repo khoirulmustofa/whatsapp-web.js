@@ -11,6 +11,11 @@ const mime = require("mime-types");
 const client = new Client({
     authStrategy: new LocalAuth(),
     // proxyAuthentication: { username: 'username', password: 'password' },
+    // webVersionCache: {
+    //     type: "remote",
+    //     remotePath:
+    //         "https://raw.githubusercontent.com/wppconnect-team/wa-version/main/html/2.2412.54.html",
+    // },
     puppeteer: {
         // args: ['--proxy-server=proxy-server-that-requires-authentication.example.com'],
         headless: false,
@@ -259,40 +264,36 @@ const phoneNumberFormatter = function (number) {
 };
 
 // Send message
-app.post(
-    "/send-message",  
-    upload.single("fileInput"),
-    async (req, res) => {        
-        const number = phoneNumberFormatter(req.body.number);
-        const message = req.body.message;
+app.post("/send-message", upload.single("fileInput"), async (req, res) => {
+    const number = phoneNumberFormatter(req.body.number);
+    const message = req.body.message;
 
-        const isRegisteredNumber = await checkRegisteredNumber(number);
+    const isRegisteredNumber = await checkRegisteredNumber(number);
 
-        if (!isRegisteredNumber) {
-            return res.status(422).json({
-                status: false,
-                message: "The number is not registered",
-            });
-        }
-
-        client
-            .sendMessage(number, message)
-            .then((response) => {
-                console.log(response);
-                res.status(200).json({
-                    status: true,
-                    response: response,
-                });
-            })
-            .catch((err) => {
-                console.log(err);
-                res.status(500).json({
-                    status: false,
-                    response: err,
-                });
-            });
+    if (!isRegisteredNumber) {
+        return res.status(422).json({
+            status: false,
+            message: "The number is not registered",
+        });
     }
-);
+
+    client
+        .sendMessage(number, message)
+        .then((response) => {
+            console.log(response);
+            res.status(200).json({
+                status: true,
+                response: response,
+            });
+        })
+        .catch((err) => {
+            console.log(err);
+            res.status(500).json({
+                status: false,
+                response: err,
+            });
+        });
+});
 
 // Send media
 app.post("/send-media", upload.single("fileInput"), async (req, res) => {
@@ -312,24 +313,24 @@ app.post("/send-media", upload.single("fileInput"), async (req, res) => {
 
         const media = new MessageMedia(mimetype, base64String, name);
 
-    client
-        .sendMessage(number, media, {
-            caption: message,
-        })
-        .then((response) => {
-            console.log(response);
-            res.status(200).json({
-                status: true,
-                response: response,
+        client
+            .sendMessage(number, media, {
+                caption: message,
+            })
+            .then((response) => {
+                console.log(response);
+                res.status(200).json({
+                    status: true,
+                    response: response,
+                });
+            })
+            .catch((err) => {
+                console.log(err);
+                res.status(500).json({
+                    status: false,
+                    response: err,
+                });
             });
-        })
-        .catch((err) => {
-            console.log(err);
-            res.status(500).json({
-                status: false,
-                response: err,
-            });
-        });
     });
 
     // fs.unlink(req.file.path, (unlinkError) => {
@@ -339,7 +340,6 @@ app.post("/send-media", upload.single("fileInput"), async (req, res) => {
     //       console.log('File deleted:', req.file.path);
     //     }
     //   });
-    
 });
 
 server.listen(port, function () {

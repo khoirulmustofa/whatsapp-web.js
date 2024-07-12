@@ -5,6 +5,7 @@
   "main": "./index.js",
   "typings": "./index.d.ts",
   "scripts": {
+    "start": "node app.js",
     "test": "mocha tests --recursive --timeout 5000",
     "test-single": "mocha",
     "shell": "node --experimental-repl-await ./shell.js",
@@ -43,8 +44,9 @@
     "multer": "^1.4.5-lts.1",
     "node-fetch": "^2.6.5",
     "node-webpmux": "^3.1.0",
-    "puppeteer": "^13.7.0",
-    "socket.io": "^4.7.2"
+    "puppeteer": "^22.6.4",
+    "socket.io": "^4.7.2",
+    "whatsapp-web.js": "^1.24.0"
   },
   "devDependencies": {
     "@types/node-fetch": "^2.5.12",
