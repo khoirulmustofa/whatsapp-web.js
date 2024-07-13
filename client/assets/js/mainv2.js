@@ -259,8 +259,7 @@ let sendMessages = () => {
 
                     return new Promise(function (resolve) {
                         let randomDelay =
-                            Math.round(Math.random() * (180000 - 60000)) +
-                            60000;
+                            Math.round(Math.random() * 150000) + 30000;
                         setTimeout(resolve, randomDelay);
                     });
                 } else {
@@ -307,8 +306,7 @@ let sendMessages = () => {
 
                     return new Promise(function (resolve) {
                         let randomDelay =
-                            Math.round(Math.random() * (180000 - 60000)) +
-                            60000;
+                            Math.round(Math.random() * 150000) + 30000;
                         setTimeout(resolve, randomDelay);
                     });
                 }

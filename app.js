@@ -1,4 +1,4 @@
-const { Client, MessageMedia, LocalAuth } = require("./index");
+const { Client, MessageMedia, LocalAuth } = require("whatsapp-web.js");
 
 const express = require("express");
 const multer = require("multer");
@@ -18,6 +18,7 @@ const client = new Client({
     // },
     puppeteer: {
         // args: ['--proxy-server=proxy-server-that-requires-authentication.example.com'],
+        
         headless: false,
     },
 });
