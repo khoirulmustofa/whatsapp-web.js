@@ -334,13 +334,13 @@ app.post("/send-media", upload.single("fileInput"), async (req, res) => {
             });
     });
 
-    // fs.unlink(req.file.path, (unlinkError) => {
-    //     if (unlinkError) {
-    //       console.error('Error deleting file:', unlinkError);
-    //     } else {
-    //       console.log('File deleted:', req.file.path);
-    //     }
-    //   });
+    fs.unlink(req.file.path, (unlinkError) => {
+        if (unlinkError) {
+          console.error('Error deleting file:', unlinkError);
+        } else {
+          console.log('File deleted:', req.file.path);
+        }
+      });
 });
 
 server.listen(port, function () {

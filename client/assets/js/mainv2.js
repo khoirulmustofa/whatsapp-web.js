@@ -259,7 +259,8 @@ let sendMessages = () => {
 
                     return new Promise(function (resolve) {
                         let randomDelay =
-                            Math.round(Math.random() * 150000) + 30000;
+                            Math.floor(Math.random() * (188000 - 47000 + 1) + 47000);
+                            console.log(`Menunggu ${randomDelay / 1000} detik...`);
                         setTimeout(resolve, randomDelay);
                     });
                 } else {
@@ -306,7 +307,8 @@ let sendMessages = () => {
 
                     return new Promise(function (resolve) {
                         let randomDelay =
-                            Math.round(Math.random() * 150000) + 30000;
+                            Math.floor(Math.random() * (188000 - 47000 + 1) + 47000);
+                            console.log(`Menunggu ${randomDelay / 1000} detik...`);
                         setTimeout(resolve, randomDelay);
                     });
                 }

@@ -1,0 +1,1 @@
+console.log(Math.floor(Math.random() * (188000 - 47000 + 1) + 47000));
